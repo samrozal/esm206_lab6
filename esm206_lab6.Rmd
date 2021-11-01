@@ -63,3 +63,68 @@ There is no signifcant differnce in ranks (often you'll see medians) between gro
 
 Median scores for group 1 (M= 14) and group 2 (M=12) did not differ signifcantly (Mann Whitney U Test: U(df) = 86, p=0,28).
 
+cam put this in the console to check
+?wilcox.test
+mwu&p.value
+
+## Linear Regression
+
+Simple linear regression (single dependant vaianle, a single independant variable)
+
+```{r}
+#Make an exploratory plot of penguin body mass (y-axis) versus fliper length (x-axis)
+
+ggplot(data=penguins, aes(x=flipper_length_mm, y=body_mass_g)) +
+  geom_point() +
+  geom_smooth(method="lm")
+```
+
+Find a linear regression model using ordinary least squares describing the relationship between flipper lengtha nd body mass for these penguins. 
+
+
+3 pieces :
+
+- What type of model?
+- What is teh relationship to model (DV~ IV(s))
+- , fWhere is the data that is used  create this model 
+
+```{r}
+penguin_lm <- lm(body_mass_g ~ flipper_length_mm, data= penguins)
+```
+
+
+Call:
+lm(formula = body_mass_g ~ flipper_length_mm, data = penguins)
+
+Coefficients:
+      (Intercept)  flipper_length_mm  
+         -5780.83              49.69  
+         
+
+penguin_lm$coefficients
+      (Intercept) flipper_length_mm 
+      -5780.83136          49.68557 
+penguin_lm$coefficients[2]
+flipper_length_mm 
+         49.68557 
+         
+         
+### broom package retyens model outputs as tiny data frames
+```{r}
+penguin_lm_tidy <- broom::tidy(penguin_lm)
+
+penguin_lm_tidy
+
+broom::glance(penguin_lm) #talk about these more on wednseday 
+
+```
+How can I actually include my model equation in a report?
+
+```{r}
+extract_eq(model=penguin_lm, use_coef = TRUE)
+```
+
+```{r}
+plot(penguin_lm)
+```
+
