@@ -127,4 +127,4 @@ extract_eq(model=penguin_lm, use_coef = TRUE)
 ```{r}
 plot(penguin_lm)
 ```
-
+just testing to see if i can still push and pull after redoing the git token. 
