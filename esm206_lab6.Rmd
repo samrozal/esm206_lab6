@@ -1,0 +1,65 @@
+---
+title: "lab_6"
+author: "Sam Rozal"
+date: "11/1/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(palmerpenguins)
+library(broom)
+library(equatiomatic)
+
+```
+
+## Example of a rank-based test
+
+we'll make our own samples usinga pseudorandom generator.
+
+```{r}
+set.seed(1414)
+gp_1 <- sample.int(20, size=15, replace = TRUE)
+
+set.seed(1424)
+gp_2 <- sample.int(30, size = 15, replace = TRUE)
+```
+
+```{r}
+hist(gp_1)
+
+hist(gp_2)
+```
+
+Try a t-test:
+```{r}
+t.test(gp_1,gp_2)
+
+```
+What is the meaning of the p-value?
+
+If these samples were drawn from two poulatosn with the same mean, the probabilty of taking two random samples with means *at least ad s differnce * as the sample means we found by random chance (taking intoaccount spread, n) is 1 19.8 percent 
+
+Retai (rail to reject) the nul hypothesis. >> There is no signifcant differnce in means between group 1 and group 2
+
+Warning: people get weirdly upset if you say "accept" the null
+
+Now lets compare this outcome to a rank based test. 
+
+## Mahn Whitney U unpaired rank-based test
+
+```{r}
+mwu <- wilcox.test(gp_1, gp_2)
+
+mwu
+```
+
+ What does the p-value mean?
+ 
+If the samples were drawn from populations with the same ranks, then the probability of finding two samples  with ranks *at least as differnt* as those in or samples is 0.28. 
+
+There is no signifcant differnce in ranks (often you'll see medians) between group 1 and group 2 (staistcal summary).
+
+Median scores for group 1 (M= 14) and group 2 (M=12) did not differ signifcantly (Mann Whitney U Test: U(df) = 86, p=0,28).
+
